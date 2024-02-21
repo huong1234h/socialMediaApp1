@@ -57,7 +57,7 @@ const Profile = () => {
   return (
     <div className="profile">
       {isLoading ? (
-        "loading"
+        "Đang tải..."
       ) : (
         <>
           <div className="images">
@@ -90,14 +90,14 @@ const Profile = () => {
                   </div>
                 </div>
                 {rIsLoading ? (
-                  "loading"
+                  "Đang tải..."
                 ) : userId === currentUser.id ? (
-                  <button onClick={() => setOpenUpdate(true)}>update</button>
+                  <button onClick={() => setOpenUpdate(true)}>Cập nhật</button>
                 ) : (
                   <button onClick={handleFollow}>
                     {relationshipData.includes(currentUser.id)
-                      ? "Following"
-                      : "Follow"}
+                      ? "Đang theo dõi"
+                      : "Theo dõi"}
                   </button>
                 )}
               </div>

@@ -1,11 +1,11 @@
-import "./share.scss";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useContext, useState } from "react";
+import Friend from "../../assets/friend.png";
 import Image from "../../assets/img.png";
 import Map from "../../assets/map.png";
-import Friend from "../../assets/friend.png";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context/authContext";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
+import { AuthContext } from "../../context/authContext";
+import "./share.scss";
 const Share = () => {
   const [file, setFile] = useState(null);
   const [desc, setDesc] = useState("");
@@ -54,7 +54,7 @@ const Share = () => {
             <img src={"/upload/" + currentUser.profilePic} alt="" />
             <input
               type="text"
-              placeholder={`What's on your mind ${currentUser.name}?`}
+              placeholder={`Bạn đang nghĩ gì, ${currentUser.name}?`}
               onChange={(e) => setDesc(e.target.value)}
               value={desc}
             />
@@ -77,20 +77,20 @@ const Share = () => {
             <label htmlFor="file">
               <div className="item">
                 <img src={Image} alt="" />
-                <span>Add Image</span>
+                <span>Thêm ảnh</span>
               </div>
             </label>
             <div className="item">
               <img src={Map} alt="" />
-              <span>Add Place</span>
+              <span>Thêm vị trí</span>
             </div>
             <div className="item">
               <img src={Friend} alt="" />
-              <span>Tag Friends</span>
+              <span>Gắn thẻ bạn bè</span>
             </div>
           </div>
           <div className="right">
-            <button onClick={handleClick}>Share</button>
+            <button onClick={handleClick}>Đăng</button>
           </div>
         </div>
       </div>

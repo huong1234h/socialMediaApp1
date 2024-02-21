@@ -5,7 +5,7 @@ const RightBar = () => {
     <div className="rightBar">
       <div className="container">
         <div className="item">
-          <span>Suggestions For You</span>
+          <span>Gợi ý cho bạn</span>
           <div className="user">
             <div className="userInfo">
               <img
@@ -15,8 +15,8 @@ const RightBar = () => {
               <span>Jane Doe</span>
             </div>
             <div className="buttons">
-              <button>follow</button>
-              <button>dismiss</button>
+              <button>Theo dõi</button>
+              <button>Bỏ qua</button>
             </div>
           </div>
           <div className="user">
@@ -34,7 +34,7 @@ const RightBar = () => {
           </div>
         </div>
         <div className="item">
-          <span>Latest Activities</span>
+          <span>Hoạt động gần đây</span>
           <div className="user">
             <div className="userInfo">
               <img
@@ -85,7 +85,7 @@ const RightBar = () => {
           </div>
         </div>
         <div className="item">
-          <span>Online Friends</span>
+          <span>Đang hoạt động</span>
           <div className="user">
             <div className="userInfo">
               <img

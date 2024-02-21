@@ -1,8 +1,8 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
-import "./stories.scss";
-import { AuthContext } from "../../context/authContext";
-import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
+import { AuthContext } from "../../context/authContext";
+import "./stories.scss";
 
 const Stories = () => {
   const { currentUser } = useContext(AuthContext);
@@ -13,25 +13,36 @@ const Stories = () => {
     })
   );
 
-  //TODO Add story using react-query mutations and use upload function.
+  const addStoryMutation = useMutation((newStory) =>
+    makeRequest.post("/stories", newStory)
+  );
+
+  const handleAddStory = () => {
+    const newStory = {
+      // Add necessary properties for the new story
+    };
+    addStoryMutation.mutate(newStory);
+  };
 
   return (
     <div className="stories">
       <div className="story">
         <img src={"/upload/" + currentUser.profilePic} alt="" />
         <span>{currentUser.name}</span>
-        <button>+</button>
+        <button onClick={handleAddStory}>+</button>
       </div>
-      {error
-        ? "Something went wrong"
-        : isLoading
-        ? "loading"
-        : data.map((story) => (
-            <div className="story" key={story.id}>
-              <img src={story.img} alt="" />
-              <span>{story.name}</span>
-            </div>
-          ))}
+      {error ? (
+        "Lỗi tải thông tin!"
+      ) : isLoading ? (
+        "Đang tải"
+      ) : (
+        data.map((story) => (
+          <div className="story" key={story.id}>
+            <img src={story.img} alt="" />
+            <span>{story.name}</span>
+          </div>
+        ))
+      )}
     </div>
   );
 };

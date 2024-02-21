@@ -95,15 +95,15 @@ const Post = ({ post }) => {
             ) : (
               <FavoriteBorderOutlinedIcon onClick={handleLike} />
             )}
-            {data?.length} Likes
+            {data?.length} Thích
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
-            See Comments
+            Bình luận
           </div>
           <div className="item">
             <ShareOutlinedIcon />
-            Share
+            Chia sẻ
           </div>
         </div>
         {commentOpen && <Comments postId={post.id} />}

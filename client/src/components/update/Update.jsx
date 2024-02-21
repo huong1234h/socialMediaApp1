@@ -63,11 +63,11 @@ const Update = ({ setOpenUpdate, user }) => {
   return (
     <div className="update">
       <div className="wrapper">
-        <h1>Update Your Profile</h1>
+        <h1>Cập nhật thông tin cá nhân</h1>
         <form>
           <div className="files">
             <label htmlFor="cover">
-              <span>Cover Picture</span>
+              <span>Ảnh nền</span>
               <div className="imgContainer">
                 <img
                   src={
@@ -87,7 +87,7 @@ const Update = ({ setOpenUpdate, user }) => {
               onChange={(e) => setCover(e.target.files[0])}
             />
             <label htmlFor="profile">
-              <span>Profile Picture</span>
+              <span>Ảnh đại diện</span>
               <div className="imgContainer">
                 <img
                   src={
@@ -114,21 +114,21 @@ const Update = ({ setOpenUpdate, user }) => {
             name="email"
             onChange={handleChange}
           />
-          <label>Password</label>
+          <label>Mật khẩu</label>
           <input
             type="text"
             value={texts.password}
             name="password"
             onChange={handleChange}
           />
-          <label>Name</label>
+          <label>Tên</label>
           <input
             type="text"
             value={texts.name}
             name="name"
             onChange={handleChange}
           />
-          <label>Country / City</label>
+          <label>Quốc gia/ Tỉnh/ Thành Phố</label>
           <input
             type="text"
             name="city"
@@ -142,10 +142,10 @@ const Update = ({ setOpenUpdate, user }) => {
             value={texts.website}
             onChange={handleChange}
           />
-          <button onClick={handleClick}>Update</button>
+          <button onClick={handleClick}>Cập nhật</button>
         </form>
         <button className="close" onClick={() => setOpenUpdate(false)}>
-          close
+          X
         </button>
       </div>
     </div>

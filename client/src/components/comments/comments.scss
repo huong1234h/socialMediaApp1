@@ -42,10 +42,10 @@
 
       .info {
         flex:5;
-        display: flex;
+        display: flex !important;
         flex-direction: column;
-        gap: 3px;
-        align-items: flex-start;
+        gap: 3px !important;
+        align-items: flex-start !important;
 
         span {
           font-weight: 500;
