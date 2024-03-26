@@ -1,0 +1,63 @@
+    
+.message{
+    max-width: 100%;
+    padding:5px 25px 10px 25px;
+    .you{
+        display: grid;
+        align-items: flex-start;
+        grid-template-columns:35px auto;
+        
+        .image{
+            img{
+                height:30px;
+                width:30px;
+                border-radius: 50%;
+            }
+        }
+        .content-message{
+            text-align: justify;
+            width: fit-content;
+            background-color: hsl(255,10%,20%);
+            color:white;
+            padding:15px 10px;
+            height: fit-content;
+            border-radius: 15px;
+            grid-column: 2;
+        }
+        .time{
+            grid-column: 2;
+            font-size: 14px;
+            color:hsl(255,10%,50%);
+            padding:5px 0 ;
+        }
+    }
+
+    .own{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        
+        width: 100%;
+        .content-message{
+            text-align: justify;
+            max-width: 30%;
+            background-color: hsl(255,80%,80%);
+            color:white;
+            padding:15px 10px;
+            border-radius: 15px;
+            overflow-x: scroll;
+            & {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            }
+            &::-webkit-scrollbar {
+             display: none;
+            }
+        }
+        .time{
+            font-size: 14px;
+            color:hsl(255,10%,50%);
+            padding:5px 0 ;
+        }
+    }
+}

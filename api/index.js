@@ -1,14 +1,17 @@
-import express from "express";
-const app = express();
-import authRoutes from "./routes/auth.js";
-import userRoutes from "./routes/users.js";
-import postRoutes from "./routes/posts.js";
-import commentRoutes from "./routes/comments.js";
-import likeRoutes from "./routes/likes.js";
-import relationshipRoutes from "./routes/relationships.js";
-import cors from "cors";
-import multer from "multer";
 import cookieParser from "cookie-parser";
+import cors from "cors";
+import express from "express";
+import multer from "multer";
+import authRoutes from "./routes/auth.js";
+import commentRoutes from "./routes/comments.js";
+import conversationRoutes from "./routes/conversations.js";
+import likeRoutes from "./routes/likes.js";
+import messageRoutes from "./routes/messages.js";
+import postRoutes from "./routes/posts.js";
+import relationshipRoutes from "./routes/relationships.js";
+import storiesRoutes from "./routes/stories.js";
+import userRoutes from "./routes/users.js";
+const app = express();
 
 //middlewares
 app.use((req, res, next) => {
@@ -45,6 +48,9 @@ app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/likes", likeRoutes);
 app.use("/api/relationships", relationshipRoutes);
+app.use("/api/stories",storiesRoutes);
+app.use("/api/messages",messageRoutes);
+app.use("/api/conversations",conversationRoutes);
 
 app.listen(8800, () => {
   console.log("API working!");

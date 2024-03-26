@@ -30,6 +30,7 @@
         padding: 20px;
         margin-bottom: 20px;
         background-color: themed("bg");
+        border-radius: 15px;
 
         span {
           color: gray;
@@ -81,17 +82,14 @@
 
             button {
               border: none;
-              padding: 5px;
-              color: white;
+              padding: 10px;
+              font-size:16px;
+              color: hsl(255,20%,10%);
               cursor: pointer;
-
-              &:first-child {
-                background-color: #5271ff;
-              }
-
-              &:last-child {
-                background-color: #f0544f;
-              }
+              border-radius: 10px;
+              background-color: hsl(255,85%,75%);
+              
+              
             }
           }
         }

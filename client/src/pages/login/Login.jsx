@@ -31,15 +31,15 @@ const Login = () => {
     <div className="login">
       <div className="card">
         <div className="left">
-          <h1>Chào bạn</h1>
+          <h1>Hello World!</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-            alias totam numquam ipsa exercitationem dignissimos, error nam,
-            consequatur.
+          Vũ Hoàng Phi-B21DCCN583<br></br>
+          Nguyễn Quang Hưởng-B21DCCN429<br></br>
+          Nguyễn Thị Trà Mi-B21DCCN518
           </p>
           <span>Bạn đã có tài khoản chưa?</span>
           <Link to="/register">
-            <button>Đăng ký</button>
+            <button>Đăng ký <span className='arrow'> &gt;&gt;  </span></button>
           </Link>
         </div>
         <div className="right">

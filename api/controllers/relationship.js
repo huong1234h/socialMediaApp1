@@ -1,5 +1,5 @@
-import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
+import { db } from "../connect.js";
 
 export const getRelationships = (req,res)=>{
     const q = "SELECT followerUserId FROM relationships WHERE followedUserId = ?";
@@ -9,6 +9,8 @@ export const getRelationships = (req,res)=>{
       return res.status(200).json(data.map(relationship=>relationship.followerUserId));
     });
 }
+
+
 
 export const addRelationship = (req, res) => {
   const token = req.cookies.accessToken;

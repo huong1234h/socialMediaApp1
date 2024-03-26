@@ -13,9 +13,9 @@ const Posts = ({userId}) => {
   return (
     <div className="posts">
       {error
-        ? "Something went wrong!"
+        ? "Lỗi tải trang!"
         : isLoading
-        ? "loading"
+        ? "Đang tải..."
         : data.map((post) => <Post post={post} key={post.id} />)}
     </div>
   );

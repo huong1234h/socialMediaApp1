@@ -13,8 +13,10 @@ import { AuthContext } from "./context/authContext";
 import { DarkModeContext } from "./context/darkModeContext";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
+import Messenger from "./pages/messenger/Messenger";
 import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
+import Search from "./pages/search/Search";
 import "./style.scss";
 
 function App() {
@@ -66,7 +68,15 @@ function App() {
           path: "/profile/:id",
           element: <Profile />,
         },
+        {
+          path: "/search/:name",
+          element: <Search />
+        },
       ],
+    },
+    {
+      path: "/messenger",
+      element: <Messenger />
     },
     {
       path: "/login",

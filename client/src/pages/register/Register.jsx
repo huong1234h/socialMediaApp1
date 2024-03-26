@@ -32,15 +32,13 @@ const Register = () => {
     <div className="register">
       <div className="card">
         <div className="left">
-          <h1>Lama Social.</h1>
+          <h1>Nhóm 10 - LTW</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-            alias totam numquam ipsa exercitationem dignissimos, error nam,
-            consequatur.
+          Mạng xã hội là một hệ thống trực tuyến cho phép người dùng kết nối, chia sẻ và tương tác với nhau qua mạng. 
           </p>
           <span>Do you have an account?</span>
           <Link to="/login">
-            <button>Login</button>
+            <button>Login<span> &gt;&gt;</span></button>
           </Link>
         </div>
         <div className="right">

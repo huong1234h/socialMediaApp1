@@ -6,6 +6,8 @@ $themes: (
     bgSoft: #f6f3f3,
     textColorSoft: #555,
     border: lightgray,
+    bgInput:hsl(255,90%,95%),
+    boxShadow:rgba(0, 0, 0, 0.1),
   ),
   dark: (
     textColor: whitesmoke,
@@ -14,6 +16,9 @@ $themes: (
     bgSoft: #333,
     textColorSoft: lightgray,
     border: #444,
+    scroll : hsl(255,0%,50%),
+    bgInput :hsla(255,30%,90%,.2),
+    boxShadow: rgba(255, 255, 255, 0.79),
   ),
 );
 

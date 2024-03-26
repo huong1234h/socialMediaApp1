@@ -1,5 +1,5 @@
-import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
+import { db } from "../connect.js";
 
 export const getUser = (req, res) => {
   const userId = req.params.userId;
@@ -11,6 +11,28 @@ export const getUser = (req, res) => {
     return res.json(info);
   });
 };
+
+export const findUser = (req, res) => {
+  const name = req.params.name;
+  const q = "SELECT * FROM users WHERE name=?";
+
+  db.query(q, [name], (err, data) => {
+    if (err) return res.status(500).json(err);
+    
+    return res.status(200).json(data);
+  });
+};
+
+export const getAllUser = (req,res)=>{
+  const userId = req.params.id ;
+  const q = "SELECT * FROM users WHERE id <> ? LIMIT 2";
+  db.query(q,[userId],(err,data)=>{
+    if(err) return res.status(500).json(err);
+    return res.json(data);
+  })
+}
+
+
 
 export const updateUser = (req, res) => {
   const token = req.cookies.accessToken;

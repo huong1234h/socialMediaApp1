@@ -1,0 +1,57 @@
+
+@import "../../style.scss";
+
+.conversation{
+    @include themify($themes){
+    margin: 20px 0 0 0  ;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap:2px;
+    height:70px ;
+    padding: 0 10px;
+    width:90%;
+    
+    
+    border-bottom: .1px solid themed('bgInput');
+    transition: all .2s linear;
+    &:hover{
+        background-color: hsla(255,80%,80%,.5);
+        border-radius: 10px;
+    }
+    .image{
+        position: relative;
+        img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        
+            margin-right: 20px;
+        }
+        span{
+            position: absolute;
+            font-size: 0;
+            padding: 7px;
+            border-radius: 50%;
+            background-color: hsl(147, 80%, 60%);
+            top: 37px;
+            left: 38px;
+        }
+
+
+    }
+
+    
+
+    span{
+        font-size:18px;
+        font-weight: 550;
+        color:themed("textColor");
+        .newMess{
+            font-size: 14px;
+            color:themed("textColorSoft");
+            font-weight: 300;
+        }
+    }
+}}
