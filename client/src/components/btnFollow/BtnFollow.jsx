@@ -2,10 +2,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import { makeRequest } from "../../axios";
 import { AuthContext } from "../../context/authContext";
+import { DarkModeContext } from "../../context/darkModeContext";
 
 const BtnFollow = ({ userId}) => {
   const { currentUser } = useContext(AuthContext);
-
+  const {darkMode} = useContext(DarkModeContext);
   const { isLoading: isRelationshipLoading, data: relationshipData } = useQuery(
     ["relationship", userId], // Include userId to refetch on user change
     async () => {
@@ -42,7 +43,7 @@ const BtnFollow = ({ userId}) => {
   };
 
   return (
-    <button onClick={handleFollow} className="btnFollow" style={!isFollowing ? {backgroundColor: 'hsl(255,85%,75%)',color:'#fff'} : {backgroundColor : 'hsl(255,50%,95%)',color:'hsl(255,10%,20%)'}}>
+    <button onClick={handleFollow} className="btnFollow" style={!isFollowing ? {backgroundColor: 'hsl(255,85%,75%)',color:'#fff'} : (darkMode ? {backgroundColor: 'hsla(255,85%,90%,.2)',color:'#fff'} : {backgroundColor: 'hsl(255,20%,90%)',color:'hsl(255,50%,20%)'})}>
       {isFollowing ? "Đang theo dõi" : "Theo dõi"}
     </button>
   );

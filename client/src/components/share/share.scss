@@ -69,15 +69,12 @@
           .item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 5px;
             cursor: pointer;
 
-            img {
-              height: 20px;
-            }
 
             span {
-              font-size: 12px;
+              font-size: 14px;
               color: gray;
             }
           }
@@ -85,11 +82,13 @@
         .right {
           button {
             border: none;
-            padding: 5px;
+            padding: 10px;
             color: white;
+            width:110px;
             cursor: pointer;
-            background-color: #5271ff;
-            border-radius: 3px;
+            background-color: hsl(255,99%,69%);
+            font-size: 16px;
+            border-radius: 20px;
           }
         }
       }

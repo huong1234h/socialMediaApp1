@@ -17,6 +17,7 @@ import Messenger from "./pages/messenger/Messenger";
 import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
 import Search from "./pages/search/Search";
+import Story from "./pages/story/Story";
 import "./style.scss";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
   const queryClient = new QueryClient();
 
   const Layout = () => {
+    
     return (
       <QueryClientProvider client={queryClient}>
         <div className={`theme-${darkMode ? "dark" : "light"}`}>
@@ -77,6 +79,10 @@ function App() {
     {
       path: "/messenger",
       element: <Messenger />
+    },
+    {
+      path:"/story/:name/:id",
+      element: <Story/>
     },
     {
       path: "/login",

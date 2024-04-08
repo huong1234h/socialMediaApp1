@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
-import "./comments.scss";
-import { AuthContext } from "../../context/authContext";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { makeRequest } from "../../axios";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import moment from "moment";
+import { useContext, useState } from "react";
+import { makeRequest } from "../../axios";
+import { AuthContext } from "../../context/authContext";
+import "./comments.scss";
 
-const Comments = ({ postId }) => {
+const Comments = ({ postId,userId }) => {
   const [desc, setDesc] = useState("");
   const { currentUser } = useContext(AuthContext);
 
@@ -25,6 +25,12 @@ const Comments = ({ postId }) => {
       onSuccess: () => {
         // Invalidate and refetch
         queryClient.invalidateQueries(["comments"]);
+        if(userId !== currentUser?.id )
+        makeRequest.post("/notifications/add",{
+          senderId: currentUser?.id,
+          receiverId: userId,
+          type:2
+        })
       },
     }
   );

@@ -14,11 +14,19 @@ export const getUser = (req, res) => {
 
 export const findUser = (req, res) => {
   const name = req.params.name;
-  const q = "SELECT * FROM users WHERE name=?";
+  const q = "SELECT * FROM users WHERE name=? LIMIT 5";
 
   db.query(q, [name], (err, data) => {
     if (err) return res.status(500).json(err);
-    
+    return res.status(200).json(data);
+  });
+};
+
+export const getSearchedUsers = (req,res)=>{
+  const name = req.params.name;
+  const q = "SELECT * FROM users WHERE name=?";
+  db.query(q,[name],(err,data)=>{
+    if(err) return res.status(500).json(err);
     return res.status(200).json(data);
   });
 };

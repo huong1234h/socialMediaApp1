@@ -1,6 +1,6 @@
-import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
 import moment from "moment";
+import { db } from "../connect.js";
 
 export const getPosts = (req, res) => {
   const userId = req.query.userId;
@@ -14,8 +14,8 @@ export const getPosts = (req, res) => {
 
     const q =
       userId !== "undefined"
-        ? `SELECT p.*, u.id AS userId, name, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userId) WHERE p.userId = ? ORDER BY p.createdAt DESC`
-        : `SELECT p.*, u.id AS userId, name, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userId)
+        ? `SELECT DISTINCT p.*, u.id AS userId, name, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userId) WHERE p.userId = ? ORDER BY p.createdAt DESC`
+        : `SELECT DISTINCT p.*, u.id AS userId, name, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userId)
     LEFT JOIN relationships AS r ON (p.userId = r.followedUserId) WHERE r.followerUserId= ? OR p.userId =?
     ORDER BY p.createdAt DESC`;
 
@@ -64,7 +64,7 @@ export const deletePost = (req, res) => {
     db.query(q, [req.params.id, userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);
       if(data.affectedRows>0) return res.status(200).json("Post has been deleted.");
-      return res.status(403).json("You can delete only your post")
+      return res.status(403).json("You can delete only your post");
     });
   });
 };

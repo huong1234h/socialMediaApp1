@@ -1,8 +1,6 @@
+import { UilImagePlus, UilLocationPoint } from '@iconscout/react-unicons';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
-import Friend from "../../assets/friend.png";
-import Image from "../../assets/img.png";
-import Map from "../../assets/map.png";
 import { makeRequest } from "../../axios";
 import { AuthContext } from "../../context/authContext";
 import "./share.scss";
@@ -76,18 +74,15 @@ const Share = () => {
             />
             <label htmlFor="file">
               <div className="item">
-                <img src={Image} alt="" />
+                <UilImagePlus size="30"/>
                 <span>Thêm ảnh</span>
               </div>
             </label>
             <div className="item">
-              <img src={Map} alt="" />
+              <UilLocationPoint size="30"/>
               <span>Thêm vị trí</span>
             </div>
-            <div className="item">
-              <img src={Friend} alt="" />
-              <span>Gắn thẻ bạn bè</span>
-            </div>
+            
           </div>
           <div className="right">
             <button onClick={handleClick}>Đăng</button>

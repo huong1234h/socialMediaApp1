@@ -1,5 +1,7 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import 'dotenv/config';
+import { db } from "./connect.js";
 import express from "express";
 import multer from "multer";
 import authRoutes from "./routes/auth.js";
@@ -7,11 +9,20 @@ import commentRoutes from "./routes/comments.js";
 import conversationRoutes from "./routes/conversations.js";
 import likeRoutes from "./routes/likes.js";
 import messageRoutes from "./routes/messages.js";
+import notificationRoutes from "./routes/notifications.js";
 import postRoutes from "./routes/posts.js";
 import relationshipRoutes from "./routes/relationships.js";
 import storiesRoutes from "./routes/stories.js";
 import userRoutes from "./routes/users.js";
+
+console.log(process.env);
 const app = express();
+
+db.connect(function(err){
+  if(err) throw err;
+  console.log("Connected!");
+})
+
 
 //middlewares
 app.use((req, res, next) => {
@@ -21,7 +32,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.URL_REACT,
   })
 );
 app.use(cookieParser());
@@ -51,7 +62,8 @@ app.use("/api/relationships", relationshipRoutes);
 app.use("/api/stories",storiesRoutes);
 app.use("/api/messages",messageRoutes);
 app.use("/api/conversations",conversationRoutes);
+app.use("/api/notifications",notificationRoutes);
 
-app.listen(8800, () => {
+app.listen(process.env.PORT, () => {
   console.log("API working!");
 });

@@ -1,19 +1,47 @@
+@import "../../style.scss";
+
 .sUser {
+  @include themify($themes){
     padding:20px;
     width: 95%;
-    border-radius: 12px;
+    
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    flex-direction: column;
     align-items: center;
-    background-color:#f6f3f3 ;
+    background-color:themed('bgSoft') ;
+
+    .seeAll{
+      display: flex;
+      width:100%;
+      height: fit-content;
+      justify-content: center;
+      align-items: center;
+      
+      button{
+        border:none;
+        font-size:18px;
+        height:45px;
+        width:95%;
+        padding:10px;
+        background-color: hsl(255,90%,66%);
+        border-radius: 10px;
+        color:#fff;
+        cursor: pointer;
+        transition: all .3s linear;
+        &:hover{
+          background-color: hsl(255,90%,60%);
+        }
+      }
+    }
     
     &__profiles {
-      background-color:#f6f3f3;
+      background-color:themed('bgSoft');
       border-radius: 0 0 12px 12px;
-      padding: 15px 15px 20px;
+      padding: 0px 15px 20px;
       display: grid;
       row-gap: 15px;
-      width: 100%;
+      width: 95%;
     }
     
     &__profile {
@@ -26,7 +54,7 @@
       box-shadow: 0 5px 7px -1px rgba(51, 51, 51, 0.23);
       cursor: pointer;
       transition: transform .25s cubic-bezier(.7,.98,.86,.98), box-shadow .25s cubic-bezier(.7,.98,.86,.98);
-      background-color: #fff;
+      background-color: themed('bg');
       
       
     }
@@ -35,11 +63,11 @@
       max-width: 100%;
       width: 60px;
       border-radius: 50%;
-      box-shadow: 0 0 0 10px #ebeef3, 0 0 0 22px #f3f4f6;
+      box-shadow: 0 0 0 10px themed('bgSoft'), 0 0 0 22px themed('bg');
     }
     
     &__name {
-      color: hsl(255,50%,5%);
+      color: themed('textColor');
       font-weight: 600;
       font-size: 18px;
       letter-spacing: 0.64px;
@@ -72,18 +100,4 @@
         }
       }
   }
-  
-  
-  
-  
-  // bare minimuu styles
-  
-  
-  .sUser {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin:15px;
-    border-radius: 5px;
-    width: 90%;
-  }
+}

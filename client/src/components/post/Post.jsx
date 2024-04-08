@@ -35,6 +35,13 @@ const Post = ({ post }) => {
       onSuccess: () => {
         // Invalidate and refetch
         queryClient.invalidateQueries(["likes"]);
+        if(!data.includes(currentUser.id) && currentUser?.id != post?.userId){
+          makeRequest.post("/notifications/add",{
+            senderId:currentUser?.id,
+            receiverId:post?.userId,
+            type:1
+          })
+        }
       },
     }
   );
@@ -46,6 +53,7 @@ const Post = ({ post }) => {
       onSuccess: () => {
         // Invalidate and refetch
         queryClient.invalidateQueries(["posts"]);
+        
       },
     }
   );
@@ -106,7 +114,7 @@ const Post = ({ post }) => {
             Chia sẻ
           </div>
         </div>
-        {commentOpen && <Comments postId={post.id} />}
+        {commentOpen && <Comments postId={post.id} userId={post.userId} />}
       </div>
     </div>
   );

@@ -51,6 +51,16 @@
     .chatBox{
         position: relative;
         top:0;
+
+        .noChatBox{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            font-size: 50px;
+            color:themed('textColorSoft');
+        }
         .chatMenu{
             padding:15px 10px 5px 10px;
             display:flex;

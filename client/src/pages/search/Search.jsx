@@ -35,12 +35,19 @@ const Search = () => {
       return <SearchedUser user={user} key={index}/>
     });
   };
-
+  
   return (
     <div className="search">
+      <div className="navSearch">
+
+      </div>
       <article className="sUser">
         <main className="sUser__profiles">{renderProfiles()}</main>
+        <div className="seeAll">
+          <button>Xem tất cả</button>
+        </div>
       </article>
+      
     </div>
   );
 };

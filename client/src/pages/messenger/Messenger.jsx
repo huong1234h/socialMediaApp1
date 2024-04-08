@@ -23,7 +23,7 @@ const Messenger = () => {
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io(process.env.REACT_APP_SOCKET_URL);
 
     socket.current.on("getMessage", (data) => {
       console.log(data); // Log received data
@@ -53,7 +53,7 @@ const Messenger = () => {
     const getConversations = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8800/api/conversations/${currentUser.id}`
+          process.env.REACT_APP_BACKEND_URL + `conversations/${currentUser.id}`
         );
         setConversations(res.data);
       } catch (err) {
@@ -71,7 +71,7 @@ const Messenger = () => {
             ? currentChat?.attendant2
             : currentChat?.attendant1;
         const response = await axios.get(
-          "http://localhost:8800/api/users/find/" + receiverId
+          process.env.REACT_APP_BACKEND_URL +"users/find/" + receiverId
         );
         setReceiver(response.data);
       } catch (err) {}
@@ -85,7 +85,7 @@ const Messenger = () => {
     const getChatBox = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8800/api/messages/${currentChat?.id}`
+          process.env.REACT_APP_BACKEND_URL +`messages/${currentChat?.id}`
         );
         setListMessage(response.data);
       } catch (err) {}
@@ -110,7 +110,7 @@ const Messenger = () => {
     });
 
     try {
-      await axios.post(`http://localhost:8800/api/messages/`, sendedData);
+      await axios.post(process.env.REACT_APP_BACKEND_URL +`messages/`, sendedData);
       setListMessage([...listMessage, sendedData]);
       setMessage("");
     } catch (err) {
@@ -143,7 +143,7 @@ const Messenger = () => {
         </div>
         <div className="chatBox">
           {currentChat === null ? (
-            <div>No Conversation</div>
+            <div className="noChatBox">No Conversation</div>
           ) : (
             <>
               <div className="chatMenu">
@@ -154,7 +154,7 @@ const Messenger = () => {
                         receiver?.profilePic === null
                           ? "/upload/image.png"
                           : `/upload/${receiver?.profilePic}`
-                      }
+                      } 
                       alt=""
                     />
                     <span>h</span>
@@ -185,10 +185,7 @@ const Messenger = () => {
                 })}
                 
               </div>
-            </>
-          )}
-
-          <div className="chatBottom">
+              <div className="chatBottom">
             <input
               value={message}
               onChange={(e) => {
@@ -200,6 +197,10 @@ const Messenger = () => {
               Send
             </button>
           </div>
+            </>
+          )}
+
+          
         </div>
       </div>
     </div>

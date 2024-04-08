@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "./register.scss";
 
 const Register = () => {
@@ -11,6 +11,7 @@ const Register = () => {
     name: "",
   });
   const [err, setErr] = useState(null);
+  const [registered, setRegistered] = useState(false); // Biến trạng thái đăng ký thành công
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -20,13 +21,14 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8800/api/auth/register", inputs);
+      await axios.post(process.env.REACT_APP_BACKEND_URL +"auth/register", inputs);
+      setErr(null); // Xóa lỗi trước
+      setRegistered(true); // Đánh dấu đăng ký thành công
     } catch (err) {
       setErr(err.response.data);
+      setRegistered(false); // Đăng ký thất bại
     }
   };
-
-  console.log(err)
 
   return (
     <div className="register">
@@ -34,7 +36,7 @@ const Register = () => {
         <div className="left">
           <h1>Nhóm 10 - LTW</h1>
           <p>
-          Mạng xã hội là một hệ thống trực tuyến cho phép người dùng kết nối, chia sẻ và tương tác với nhau qua mạng. 
+            Mạng xã hội là một hệ thống trực tuyến cho phép người dùng kết nối, chia sẻ và tương tác với nhau qua mạng.
           </p>
           <span>Do you have an account?</span>
           <Link to="/login">
@@ -71,6 +73,8 @@ const Register = () => {
             {err && err}
             <button onClick={handleClick}>Register</button>
           </form>
+          {registered && <Navigate to="/login" replace={true} />} 
+          {/* Hiển thị chuyển hướng sau khi đăng ký thành công */}
         </div>
       </div>
     </div>

@@ -2,10 +2,11 @@
 
 .leftBar {
   @include themify($themes) {
-    flex: 2.5;
+    flex: 3;
     position: sticky;
     top: 70px;
-    width: 100%;
+    width: 110%;
+    
     height: calc(100vh - 70px);
     overflow: scroll;
     
@@ -37,9 +38,9 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-        margin-left: 20px;
+        
         margin-bottom: 16px;
-        width:82%;
+        width:90%;
         
         background-color: themed('bg');
         border-radius: 15px;
@@ -72,7 +73,7 @@
           .wUser{
             font-weight: 500;
             font-size: 12px;
-            color:hsl(255,30%,50%);
+            color:themed('textColorSoft');
             letter-spacing: 0;
           }
         }
@@ -84,12 +85,13 @@
           transition: all .2s linear;
           height:fit-content;
           padding:10px;
-          
+          color:themed('textColor');
+          position:relative;
           border-radius: 10px;
           cursor: pointer;
 
           &:hover{
-            background-color: hsl(255,90%,92%);
+            background-color:themed('bgInput');
           }
 
           img {
@@ -98,6 +100,18 @@
 
           span {
             font-size: 14px;
+          }
+          .numerous{
+            font-size: 12px;
+            padding:3px;
+            color:hsl(255,50%,90%);
+            font-weight: 550;
+            position: absolute;
+            text-align: center;
+            background-color: red;
+            border-radius: 50% ;
+            left:27px;
+            top:5px;
           }
         }
       }

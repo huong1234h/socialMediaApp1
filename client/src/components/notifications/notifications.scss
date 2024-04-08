@@ -1,0 +1,110 @@
+
+
+.notification{
+    padding:20px;
+    
+    width: 90%;
+    z-index:100;
+    -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+    -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+    box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+    height: 350px;
+    background-color: hsl(0, 0%, 100%);
+    border-radius: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-y: scroll  ;
+    
+    &::-webkit-scrollbar{
+        display: none;
+    }
+    .title{
+        box-sizing: border-box;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 10px;
+        
+        padding:5px;
+        .title_name{
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .exit{
+            font-size: 16px;
+            font-weight: 600;
+            height: 30px;
+            width: 30px;
+            transform-origin: center;
+            cursor: pointer;
+            transition: all .3s ease;
+            &:hover{
+                opacity: .5;
+                
+            }
+        }
+    }
+    .item{
+        box-sizing: border-box;
+        display: grid !important;
+        grid-template-columns: 35px 2fr;
+        transition: all .2s linear;
+        column-gap: 5px;
+        width: 100%;
+        border-bottom: .5px solid hsl(255,10%,90%);
+        padding: 8px;
+        align-items: center;
+        border-radius: 8px;
+        cursor: pointer;
+        &:hover{
+            background-color: hsl(255,50%,95%);
+        }
+        .image{
+            grid-row: 1 ;
+            img{
+                height:35px;
+                width:35px;
+                
+                border-radius: 50%;
+                
+            }
+        }
+        .name{
+            font-weight: 550;
+            font-size: 14px;
+            width:fit-content;
+            color:hsl(255,100%,10%);
+            span{
+                font-size: 12px !important;
+                color:hsl(255,10%,60%);
+                font-weight: 400;
+                
+            }
+            .title_post{
+                
+                font-weight: 550;
+                color: hsl(255,10%,40%);
+                .point{
+                    
+                    vertical-align: middle;
+                    margin-left: 4px;
+                    margin-bottom: 4px;
+                    font-size: 0 !important;
+                    padding:3px;
+                    border-radius: 50%;
+                    background-color:red;
+                    border:2px solid rgb(224, 133, 133);
+                }
+            }
+            .time{
+                font-size: 12px !important;
+                color:hsl(255,20%,80%);
+                font-weight: 500;
+            }
+        }
+        
+        
+    }
+
+}
