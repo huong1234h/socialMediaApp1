@@ -15,6 +15,8 @@
     
 
     .form{
+        
+        
         box-sizing: border-box;
         width:450px;
         height:500px;
@@ -22,7 +24,11 @@
         background-color: themed("bg");
         justify-content: center;
         align-items: center;
-       
+        @include mobile{
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+        }
         .title{
             box-sizing: border-box;
             display: flex;
@@ -32,9 +38,22 @@
             
             height: 50px;
             padding:30px 20px;
+            @include mobile{
+                margin:20px 0;
+            }
             .name{
                 font-size:25px;
                 font-weight: 600;
+            }
+            .exit{
+                background-color: themed('bgInput');
+                height: 40px;
+                width: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                color: themed('textColorSoft');
             }
         }
         .frame{
@@ -54,14 +73,18 @@
         .data{
             box-sizing: border-box;
             width: 100%;
-            height: 35%;
+            height: fit-content;
             display: flex;
             justify-content: flex-start;
             padding:30px 10px 20px 10px;
             flex-direction: column;
+            @include mobile{
+                padding:40px 10px 30px 10px;
+                justify-content: center;
+            }
             .item{
                 height:40px;
-                margin-bottom: 10px;
+                margin-bottom: 5px;
                 display: flex;
                 flex-direction: row;
                 align-items: center;

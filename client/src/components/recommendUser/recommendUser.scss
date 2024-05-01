@@ -1,0 +1,112 @@
+@import "../../style.scss";
+
+.recommendUser{
+  @include themify($themes) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    z-index: 9999;
+    .boxUser{
+        display: flex;
+        flex-direction: column;
+        background-color: themed("bg");
+        height: 75vh;
+        width: 35vw;
+        overflow-y: scroll;
+        padding:15px 25px;
+        border-radius: 20px;
+        scrollbar-width: none;
+        .titleBar{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+            margin: 0 0 10px 0;
+            .title{
+                font-size: 25px;
+                font-weight: 600;
+                text-align: center;
+            }
+            .exit{
+                height: 40px;
+                width: 40px;
+                background-color: hsl(255,5%,90%);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                transition: all .2s linear;
+                cursor: pointer;
+                &:hover{
+                    background-color: hsl(255,5%,70%);
+                }
+            }
+        }
+    .user{
+        height: fit-content ;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 0 10px 0;
+        .userInfo{
+            display: grid;
+            grid-template-columns: 50px 1.5fr;
+            grid-template-rows: .8fr 1fr;
+            gap:5px;
+            .name{
+                font-size: 16px;
+                font-weight: 500;
+                color:themed('textColor');
+            }
+            .blog{
+                font-size: 12px;
+                color: hsl(255,5%,70%);
+            }
+            .image{
+                grid-row:1 / span 2;
+                img{
+                    height: 50px;
+                    width: 50px;
+                    
+                    border-radius: 50%;
+                    grid-column: 1;
+                }
+            }
+            
+            .blog{
+                grid-column: 2;
+            }
+        }
+    }
+    .buttons{
+        button{
+            border: none;
+            height: 35px;
+            font-size: 16px;
+            border-radius: 10px;
+            min-width: 100px;
+            width: fit-content;
+            padding:5px;
+            outline: none;
+            transition: all .2s ease-in;
+            &:hover{
+                
+                transform: scale(1.1);
+            }
+            &:focus{
+                border:none;
+                outline: none;
+            }
+        }
+    }
+}
+  }
+}

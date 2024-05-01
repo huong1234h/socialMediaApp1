@@ -12,6 +12,27 @@ export const getUser = (req, res) => {
   });
 };
 
+export const getFriends = (req, res) => {
+  const userId = req.query.userId;
+  const token = req.cookies.accessToken;
+  if (!token) return res.status(401).json("Not logged in!");
+
+  jwt.verify(token, "secretkey", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid!");
+
+    const q = `SELECT distinct r.followedUserId, u.id AS userId, name, profilePic
+FROM relationships AS r
+LEFT JOIN users AS u ON (r.followerUserId = ? AND u.id = r.followedUserId ) WHERE u.id != ?`;
+    const values =
+      userId !== "undefined" ? [userId, userId] : [userInfo.id, userInfo.id];
+
+    db.query(q, values, (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json(data);
+    });
+  });
+};
+
 export const findUser = (req, res) => {
   const name = req.params.name;
   const q = "SELECT * FROM users WHERE name=? LIMIT 5";
@@ -22,25 +43,47 @@ export const findUser = (req, res) => {
   });
 };
 
-export const getSearchedUsers = (req,res)=>{
+export const getSearchedUsers = (req, res) => {
   const name = req.params.name;
   const q = "SELECT * FROM users WHERE name=?";
-  db.query(q,[name],(err,data)=>{
-    if(err) return res.status(500).json(err);
+  db.query(q, [name], (err, data) => {
+    if (err) return res.status(500).json(err);
     return res.status(200).json(data);
   });
 };
 
-export const getAllUser = (req,res)=>{
-  const userId = req.params.id ;
+export const getAllUser = (req, res) => {
+  const userId = req.params.id;
   const q = "SELECT * FROM users WHERE id <> ? LIMIT 2";
-  db.query(q,[userId],(err,data)=>{
-    if(err) return res.status(500).json(err);
+  db.query(q, [userId], (err, data) => {
+    if (err) return res.status(500).json(err);
     return res.json(data);
-  })
-}
+  });
+};
 
+export const getRecommendUser = (req, res) => {
+  const userId = req.params.id;
+  const token = req.cookies.accessToken;
+  if (!token) return res.status(401).json("Not logged in!");
+  jwt.verify(token, "secretkey", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid!");
 
+    const q = `SELECT u.id, u.name, u.profilePic
+    FROM users AS u
+    WHERE u.id NOT IN (
+        SELECT followedUserId
+        FROM relationships
+        WHERE followerUserId = ?
+    )
+    AND u.id != ?`;
+    const values =
+      userId !== "undefined" ? [userId, userId] : [userInfo.id, userInfo.id];
+    db.query(q, values, (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.status(200).json(data);
+    });
+  });
+};
 
 export const updateUser = (req, res) => {
   const token = req.cookies.accessToken;

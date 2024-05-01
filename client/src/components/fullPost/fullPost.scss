@@ -1,0 +1,120 @@
+@import "../../style.scss";
+
+
+
+.fullPost {
+  @include themify($themes) {
+    position: fixed;
+    
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: grid;
+    grid-template-columns: 65vw 35vw;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+
+    .exit{
+        position: fixed;
+        top:15px;
+        z-index: 999;
+        left:15px;
+        color:hsl(255,10%,90%);
+        background-color: hsl(255,5%,30%);
+        display: flex;
+        padding:10px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all .2s linear;
+        &:hover{
+            background-color: hsl(255,3%,60%);
+
+        }
+    }
+    .imagePost{
+        background-color: hsl(255,20%,15%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 65vw;
+        position: relative;
+        height: 100vh;
+        img{
+            margin-top: 30px;
+            height: 80vh;
+            width: 60vw;
+        }
+    }
+    .infoPost{
+        overflow-y:scroll;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        width: 35vw;
+        background-color: hsl(255,10%,95%);
+        .description{
+            padding:1px 20px;
+            height: fit-content;
+            max-height: 20vh;
+            margin-bottom: 10px;
+        }
+        .info{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding:15px;
+            .option{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .user{
+                display: grid;
+                grid-template-columns:60px 2fr ;
+                column-gap: 7px;
+                .name{
+                    font-size: 20px;
+                    font-weight: 600;
+                    color:themed("textColor");
+                }
+                .time{
+                    font-size:14px;
+                    color:themed("textColorSoft");
+                }
+                .profile_post{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    grid-column: 1;
+                    grid-row: 1 / span 2;
+                    img{
+                        height: 50px;
+                        width: 50px;
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+        .reactBar{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top:1px solid hsl(255,5%,75%);
+            border-bottom: 1px solid hsl(255,5%,75%);
+            padding:10px 20px;
+            margin:10px 3px;
+            .item{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap:10px;
+            }
+        }
+        
+    }
+
+    }
+}

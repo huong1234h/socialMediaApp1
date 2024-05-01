@@ -1,0 +1,150 @@
+@import '../../style.scss';
+
+.comment{
+    @include themify($themes){
+        width: 100%;
+        .contentComment{
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: column;
+        padding:10px;
+        background-color: hsl(255,50%,99%);
+        gap:5px;
+        width:90%;
+        height: fit-content;
+        border: 3px solid hsl(230,99%,80%);
+        border-radius: 15px;
+        .title_comment{
+            display: grid;
+            justify-content: flex-start;
+            width: 100%;
+            column-gap: 10px;
+            grid-template-columns: 50px 200px;
+            grid-row: 1fr 1fr;
+            padding:5px;
+            
+                .image{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    grid-row: 1 / span 2;
+                    grid-column: 1;
+                    img{
+                        height: 40px;
+                        width: 40px;
+                    }
+    
+                }
+                .name{
+                    grid-column: 2;
+                    grid-row: 1;
+                    font-size:16px;
+                    font-weight: 550;
+                    color: hsl(255,10%,20%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                }
+            }
+            .time{
+                font-size: 14px;
+                color:hsl(255,5%,70%);
+                grid-column: 2;
+                
+            }
+            
+        .updateInput{
+            width: 100%;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            background-color: inherit;
+            height: fit-content;
+            &:focus{
+                border: none;
+                outline: none;
+            }
+        }
+
+        .formUpdate{
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .updateBtn{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            outline: none;
+            background-color: hsl(230,95%,65%);
+            color:hsl(255,10%,95%);
+            padding:5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:hover{
+                background-color: hsl(230,95%,80%);
+            }
+            svg{
+                width: 30px;
+                height: 30px;
+            }
+            &:focus{
+                border: none;
+                outline: none;
+            }
+        }
+        .descriptionComment{
+            padding:0 10px;
+            display: flex;
+            font-size: 16px;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+        
+        
+    }
+}
+    .toolComment{
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap:15px;
+        margin-top:5px;
+        margin-bottom: 5px;
+        padding:5px;
+        .icon{
+            cursor: pointer;
+            display: flex;
+            font-size: 12px;
+            justify-content: center;
+            align-items: center;
+            gap:5px;
+        }
+    }
+    .replyBox{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .numberReply{
+        padding:0 5px;
+        padding-bottom: 5px;
+        color: hsl(255,0%,30%);
+        box-sizing: border-box;
+        padding-left: 10px;
+        cursor: pointer;
+        display: flex;
+        width: 100%;
+        justify-content: flex-start;
+        &:hover{
+            color: hsl(255,0%,10%);
+            text-decoration: underline;
+        }
+    }
+    
+}

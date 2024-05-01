@@ -12,8 +12,8 @@ export const getStories = (req, res) => {
 
     console.log(userId);
 
-    const q = `SELECT DISTINCT s.*, name FROM stories AS s JOIN users AS u ON (u.id = s.userId)
-    LEFT JOIN relationships AS r ON (s.userId = r.followedUserId AND r.followerUserId= ?) LIMIT 4`;
+    const q = `SELECT DISTINCT s.*, name,profilePic FROM stories AS s JOIN users AS u ON (u.id = s.userId)
+    LEFT JOIN relationships AS r ON (s.userId = r.followedUserId AND r.followerUserId= ?)`;
 
     db.query(q, [userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);

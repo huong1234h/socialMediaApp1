@@ -1,0 +1,72 @@
+@import "../../style.scss";
+
+.write {
+  @include themify($themes) {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid hsl(240,99%,80%);
+    padding:5px 10px;
+    border-radius: 5px;
+    width: 90%;
+    box-sizing: border-box;
+    background-color: hsl(240,70%,98%);
+    
+    gap: 10px;
+    margin: 20px 0px;
+    height: fit-content;
+    width:100%;
+
+    .emoji{
+        color:hsl(255,20%,30%);
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg{
+            width:30px;
+            height: 40px;
+        }
+    }
+    
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    input {
+      display: flex;
+      align-items: center;
+      flex: 5;
+      padding: 10px;
+      font-size: 16px;
+      border:none;
+      background-color: transparent;
+      color: themed("textColor");
+      &:focus{
+        border: none;
+        outline: none;
+      }
+    }
+
+    button {
+      border: none;
+      background-color: #5271ff;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .picker_container{
+        position: absolute;
+        z-index: 999;
+        top:110%;
+    }
+  }
+}

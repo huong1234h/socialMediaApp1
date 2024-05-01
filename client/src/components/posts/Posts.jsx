@@ -16,7 +16,7 @@ const Posts = ({userId}) => {
         ? "Lỗi tải trang!"
         : isLoading
         ? "Đang tải..."
-        : data.map((post,index) => <Post post={post} key={index} />)}
+        : data?.map((post,index) => <Post post={post} key={index} />)}
     </div>
   );
 };

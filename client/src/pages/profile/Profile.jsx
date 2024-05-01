@@ -1,14 +1,8 @@
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LanguageIcon from "@mui/icons-material/Language";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import PlaceIcon from "@mui/icons-material/Place";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { makeRequest } from "../../axios";
+import CurrentPost from "../../components/currentPost/CurrentPost";
 import Posts from "../../components/posts/Posts";
 import Update from "../../components/update/Update";
 import { AuthContext } from "../../context/authContext";
@@ -62,50 +56,54 @@ const Profile = () => {
         <>
           <div className="images">
             <img src={"/upload/"+data.coverPic} alt="" className="cover" />
-            <img src={"/upload/"+data.profilePic} alt="" className="profilePic" />
           </div>
+          
           <div className="profileContainer">
             <div className="uInfo">
-              <div className="left">
-                <a href="http://facebook.com">
-                  <FacebookTwoToneIcon fontSize="medium" />
-                </a>
-                <a href="http://facebook.com">
-                  <InstagramIcon fontSize="medium" />
-                </a>
-                <a href="http://facebook.com">
-                  <TwitterIcon fontSize="medium" />
-                </a>
-              </div>
+            <div className="profilePic">
+              <img src={"/upload/"+data.profilePic} alt="" className="profilePic" />
+            </div>
+            
               <div className="center">
-                <span>{data.name}</span>
+                <div className="userName">{data.name}
+                <span className="location">Live in {data?.city}
+                  </span></div>
                 <div className="info">
                   <div className="item">
-                    <PlaceIcon />
-                    <span>{data.city}</span>
+                    Theo dõi
+                    <span>455</span>
                   </div>
                   <div className="item">
-                    <LanguageIcon />
-                    <span>{data.website}</span>
+                    Đang theo dõi
+                    <span>155</span>
+                  </div>
+                  <div className="item">
+                    Bài viết
+                    <span>64</span>
                   </div>
                 </div>
-                {rIsLoading ? (
+                <div className="button-profile">
+            {rIsLoading ? (
                   "Đang tải..."
                 ) : userId === currentUser.id ? (
-                  <button onClick={() => setOpenUpdate(true)}>Cập nhật</button>
+                  <>
+                  <button className="update-btn" onClick={() => setOpenUpdate(true)}>Cập nhật</button>
+                  <button className="create-story">Tạo tin</button>
+                  </>
                 ) : (
+                  <>
                   <button onClick={handleFollow}>
                     {relationshipData.includes(currentUser.id)
                       ? "Đang theo dõi"
                       : "Theo dõi"}
                   </button>
+                  <button className="chat">Nhắn tin</button>
+                  </>
                 )}
-              </div>
-              <div className="right">
-                <EmailOutlinedIcon />
-                <MoreVertIcon />
+            </div>
               </div>
             </div>
+            <CurrentPost/>
             <Posts userId={userId} />
           </div>
         </>

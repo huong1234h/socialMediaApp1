@@ -1,0 +1,30 @@
+@import "../../style.scss";
+
+.navMobile{
+    @include themify($themes){
+        display: none;
+        @include mobile{
+            
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 50px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+            background-color: themed('bg');
+            z-index: 300;
+            .item{
+                color:themed('textColor');
+                img{
+                    height:35x;
+                    width: 35px;
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+}

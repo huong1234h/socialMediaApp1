@@ -7,7 +7,7 @@ export const addConversations = (req,res)=>{
     const q = "SELECT * FROM conversations WHERE attendant1 = ? AND attendant2 = ?" ;
     db.query(q,[att1Id,att2Id],(err,data)=>{
         if(err) return res.status(500).json.err;
-        if(data.length) return res.status(200).json(true) ;
+        if(data.length) return res.status(200).json(data) ;
 
         const q = "INSERT INTO conversations (`attendant1` , `attendant2`) VALUE (?)";
         const value = [
@@ -16,7 +16,11 @@ export const addConversations = (req,res)=>{
         ];
         db.query(q,[value],(err,data)=>{
             if(err) return res.status(500).json(err);
-            return res.status(200).json("Conversation has been created!");
+            const q = "SELECT * FROM conversations WHERE attendant1 = ? AND attendant2 = ?" ;
+            db.query(q,[att1Id,att2Id],(err,data)=>{
+                if(err) return res.status(500).json(err);
+                return res.status(200).json(data);
+            })
         });
     });
 };

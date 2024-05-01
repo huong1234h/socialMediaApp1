@@ -1,0 +1,12 @@
+@import '../../style.scss';
+
+.commentList{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    gap:10px;
+    justify-content: flex-start;
+    align-items: center;
+
+}

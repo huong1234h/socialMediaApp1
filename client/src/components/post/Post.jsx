@@ -10,12 +10,13 @@ import { Link } from "react-router-dom";
 import { makeRequest } from "../../axios";
 import { AuthContext } from "../../context/authContext";
 import Comments from "../comments/Comments";
+import FullPost from "../fullPost/FullPost";
 import "./post.scss";
 
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [showImg,setShowImg] = useState(false);
   const { currentUser } = useContext(AuthContext);
 
   const { isLoading, error, data } = useQuery(["likes", post.id], () =>
@@ -23,6 +24,8 @@ const Post = ({ post }) => {
       return res.data;
     })
   );
+
+
 
   const queryClient = useQueryClient();
 
@@ -89,7 +92,7 @@ const Post = ({ post }) => {
         </div>
         <div className="content">
           <p>{post.desc}</p>
-          <img src={"/upload/" + post.img} alt="" />
+          <img src={"/upload/" + post.img} alt="" onClick={()=>{setShowImg(!showImg);document.body.style.overflow = showImg ? 'auto' : 'hidden';}}/>
         </div>
         <div className="info">
           <div className="item">
@@ -114,8 +117,9 @@ const Post = ({ post }) => {
             Chia sẻ
           </div>
         </div>
-        {commentOpen && <Comments postId={post.id} userId={post.userId} />}
+        {commentOpen && data && <Comments postId={post.id} userId={post.userId} />}
       </div>
+      {showImg && <FullPost post={post} onHidden={()=>{setShowImg(!showImg);document.body.style.overflow = showImg ? 'auto' : 'hidden';}}/>}
     </div>
   );
 };

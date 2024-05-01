@@ -6,6 +6,7 @@
     position: sticky;
     top: 70px;
     height: calc(100vh - 70px);
+    z-index: 99;
     overflow: scroll;
     background-color: themed("bgSoft");
 
@@ -31,16 +32,60 @@
         margin-bottom: 20px;
         background-color: themed("bg");
         border-radius: 15px;
-
-        span {
+        span{
           color: gray;
         }
+        .recommendTab{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .title{
+            font-size: 16px;
+            font-weight: 600;
+          }
+          .all{
+            font-size: 14px;
+            &:hover{
+              text-decoration: underline;
+              cursor: pointer;
+            }
+          }
+        }
+
+
 
         .user {
           display: flex;
-          align-items: center;
+          
           justify-content: space-between;
           margin: 20px 0px;
+          &.user-recommend{
+            display: grid;
+            grid-template-columns: 65px 2fr;
+            row-gap:10px;
+            column-gap: 10px;
+            .userInfo{
+              grid-row: 1 / span 2;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              vertical-align: middle;
+              img{
+                
+                height:60px;
+                width:60px;
+              }
+            }
+            .name{
+              font-weight: 550;
+              grid-row: 1;
+              grid-column: 2;
+            }
+            .buttons{
+              grid-row: 2;
+              grid-column: 2;
+            }
+          }
 
           .userInfo {
             display: flex;
@@ -74,6 +119,17 @@
               color: themed("textColor");
             }
           }
+          .user-recommend{
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            .userInfo{
+              grid-row: 1;
+              grid-column: 1 span /2;
+            }
+            .buttons{
+              grid-row: 2;
+            }
+          }
 
           .buttons {
             display: flex;
@@ -82,7 +138,7 @@
 
             button {
               border: none;
-              padding: 10px;
+              padding: 10px 20px;
               font-size:16px;
               color: hsl(255,20%,10%);
               cursor: pointer;

@@ -13,7 +13,14 @@
     top: 0;
     background-color: themed("bg");
     color:themed("textColor");
-    z-index: 999;
+    z-index: 99;
+    @include mobile{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content:space-between;
+      height: 35px;
+    }
 
     .left {
       display: flex;
@@ -30,6 +37,11 @@
           font-size: 20px;
           color: themed("logo");
         }
+        @include mobile{
+          justify-content: flex-start;
+          align-items: center;
+          gap:15px;
+        }
       }
       
     }
@@ -45,6 +57,11 @@
       height:30px;
       background-color: themed('bgInput');
       border-radius: 20px;
+      @include mobile{
+        width: 30px;
+        height: 30px;
+        background-color: themed('bg');
+      }
       input {
         border: none;
         width:100%;

@@ -1,9 +1,10 @@
 import mysql from "mysql";
 
 export const db = mysql.createConnection({
-  host: "social.cd6ck8ggant5.us-west-1.rds.amazonaws.com",
+  host: "localhost",
   port:"3306",
-  user: "social",
-  password: "30042002hH*",
-  database: "social"
+  user: "root",
+  password: "123456789",
+  database: "social",
+  charset: 'utf8mb4',
 });

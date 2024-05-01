@@ -7,6 +7,7 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 import LeftBar from "./components/leftBar/LeftBar";
+import NavMobile from "./components/navMobile/NavMobile";
 import Navbar from "./components/navbar/Navbar";
 import RightBar from "./components/rightBar/RightBar";
 import { AuthContext } from "./context/authContext";
@@ -35,11 +36,12 @@ function App() {
           <Navbar />
           <div style={{ display: "flex" }}>
             <LeftBar />
-            <div style={{ flex: 6 }}>
+            <div style={{ flex: 6}}>
               <Outlet />
             </div>
             <RightBar />
           </div>
+          <NavMobile/>
         </div>
       </QueryClientProvider>
     );
@@ -75,6 +77,10 @@ function App() {
           element: <Search />
         },
       ],
+    },
+    {
+      path: "/messenger/:userId/:conversationId",
+      element: <Messenger />
     },
     {
       path: "/messenger",

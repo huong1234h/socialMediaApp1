@@ -1,0 +1,14 @@
+@import '../../style.scss';
+
+.replyComment{
+    @include themify($themes){
+        width:93%;
+        
+        .boxReply{
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+    }
+}

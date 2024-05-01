@@ -1,0 +1,110 @@
+
+.detailStory{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: hsl(255,10%,5%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    color: #fff;
+    .exit{
+        position: fixed;
+        display: flex;
+        top:20px;
+        left:20px;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        padding:5px;
+        background-color: hsl(255,5%,40%);
+        justify-content: center;
+        align-items: center;
+        transition: all .1s ease;
+        &:hover{
+            background-color: hsl(255,5%,60%);
+            transform: scale(1.05);
+        }
+    }
+    .content{
+        position: relative;
+        height: 83vh;
+        width: 25vw;
+        bottom: -25px;
+        .prev-story,.next-story{
+            position: absolute;
+            top:50%;
+            height: 40px;
+            width: 40px;
+            padding: 5px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            transform: translateY(-20px);
+            background-color: hsl(255,10%,20%);
+            transition: all .2s ease-in-out;
+            &:hover{
+                background-color: hsl(255,10%,40%);
+            }
+        }
+        .prev-story{
+            left:-60px;
+            &:hover{
+                left: -70px;
+            }
+        }
+        .next-story{
+            right: -60px;
+            &:hover{
+                right: -70px;
+            }
+        }
+        .tab-story{
+            position: absolute;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            
+            top:-50px;
+            left: 0;
+            .option{
+                display: flex;
+                
+                align-items: center;
+            }
+            .name{
+                display: flex;
+                align-items: center;
+                font-size: 19px;
+                font-weight: 540;
+                img{
+                    height: 40px;
+                    width: 40px;
+                    border-radius: 50%;
+                    margin-right: 5px;
+                }
+                .time{
+                    font-size: 13px;
+                    margin-left: 10px;
+                    color: hsl(255,10%,90%);
+                    font-weight: 500;
+                }
+            }
+        }
+        .image{
+            height: 100%;
+            width: 100%;
+            img{
+                height: 100%;
+                width: 100%;
+                border-radius: 15px;
+            }
+        }
+    }
+}
