@@ -62,6 +62,14 @@
         height: 30px;
         background-color: themed('bg');
       }
+      svg{
+        transition: all .2s ease;
+      }
+      &:hover{
+        svg{
+          color: hsl(255,19%,70%);
+        }
+      }
       input {
         border: none;
         width:100%;

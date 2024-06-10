@@ -137,7 +137,7 @@ const Comment = ({comment,index}) => {
       <div className="contentComment">
         <div className="title_comment">
           <div className="image">
-            <img src={"/upload/" + comment.profilePic} />
+            <img src={comment.profilePic} />
           </div>
           <div className="name">{comment.name}</div>
 

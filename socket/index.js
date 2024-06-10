@@ -5,7 +5,7 @@
     },
   });
   
-  let users = [];
+  let users = [];//save users
   
   const addUser = (userId, socketId) => {
     !users.some((user) => user?.userId === userId) &&
@@ -17,28 +17,34 @@
   };
   
   const getUser = (userId) => {
-    return users.find((user) => user?.userId === userId);
+    console.log(userId);
+    console.log(users);
+    const data = users.find((user) => user?.userId === userId);
+    console.log("data",data);
+    return data;
   };
   
   io.on("connection", (socket) => {
+    
     //when ceonnect
     console.log("a user connected.");
   
     //take userId and socketId from user
     socket.on("addUser", (userId) => {
-      addUser(userId, socket?.id);
+      console.log(socket.id);
+      addUser(userId, socket.id);
       io.emit("getUsers", users);
     });
   
     //send and get message
-    socket.on("sendMessage", ({ sendUserId,receiveUserId,contentMessage,zoomId }) => {
-      const user = getUser(receiveUserId);
-      io.to(user?.socketId).emit("getMessage", {
-        sendUserId,
-        receiveUserId,
-        contentMessage,
-        zoomId,
-      });
+    socket.on("sendMessage", (data) => {
+      console.log(data.receiveUserId);
+      
+      const user = getUser(data.receiveUserId);
+      console.log(user);
+      console.log(user?.socketId);
+      console.log(user?.userId);
+      io.to(user?.socketId).emit("getMessage", data);
     });
   
     //when disconnect

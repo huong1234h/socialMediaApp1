@@ -1,8 +1,8 @@
 import { UilTimesCircle } from "@iconscout/react-unicons";
 import { useQuery } from "@tanstack/react-query";
+import moment from 'moment';
 import { makeRequest } from "../../axios";
 import "./notifications.scss";
-
 const Notifications = ({ userId, onHidden }) => {
   const { isLoading, error, data } = useQuery(["notifications", userId], () =>
     makeRequest.get("/notifications/" + userId).then((res) => res.data)
@@ -38,10 +38,10 @@ const Notifications = ({ userId, onHidden }) => {
                   notification.type === 3 && "followed"} your post
               </span>
               <div className="title_post">
-                My morning Huong Huong Huong Huong
-                <span className="point">h</span>
+                
+                
               </div>
-              <span className="time">5m ago</span>
+              <span className="time">{moment(notification.createAt).fromNow()}</span>
             </div>
           </div>
         ))

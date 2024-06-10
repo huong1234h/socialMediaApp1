@@ -1,8 +1,8 @@
-import cookieParser from "cookie-parser";
-import cors from "cors";
+import cookieParser from "cookie-parser"; //
+import cors from "cors"; //
 import 'dotenv/config';
 import express from "express";
-import multer from "multer";
+import multer from "multer"; //
 import { db } from "./connect.js";
 import authRoutes from "./routes/auth.js";
 import commentRoutes from "./routes/comments.js";
@@ -46,10 +46,14 @@ const storage = multer.diskStorage({
   },
 });
 
+
 const upload = multer({ storage: storage });
 
 app.post("/api/upload", upload.single("file"), (req, res) => {
+  console.log(req);
+
   const file = req.file;
+  console.log(file);
   res.status(200).json(file.filename);
 });
 

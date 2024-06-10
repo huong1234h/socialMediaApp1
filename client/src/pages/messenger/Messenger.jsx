@@ -1,4 +1,4 @@
-import { UilMessage, UilSmileBeam } from '@iconscout/react-unicons';
+import { UilMessage, UilSmileBeam, UilTrash, UilUser } from '@iconscout/react-unicons';
 import MoreHorizSharpIcon from "@mui/icons-material/MoreHorizSharp";
 import axios from "axios";
 import Picker from 'emoji-picker-react';
@@ -15,23 +15,24 @@ import "./messenger.scss";
 const Messenger = () => {
   const { currentUser } = useContext(AuthContext);
   //_____/messenger/:userId/conversationId
-    const requestedChat = {
-      id: parseInt(useLocation().pathname.split("/")[3]),
-      attendant1:currentUser?.id,
-      attendant2:parseInt(useLocation().pathname.split("/")[2]),};
   
-  console.log("requestedChat: ",requestedChat,requestedChat.id);
-  console.log(requestedChat.id == false);
+  
+  
+  const location = useLocation();
+  
+  
+  console.log("requestedChat",location.state?.requestedChat[0]);
   const { darkMode } = useContext(DarkModeContext);
-  
+  // console.log("requestedChat : ",requestedChat[0].id);
   const [conversations, setConversations] = useState([]);
-  const [currentChat, setCurrentChat] = useState(Boolean(requestedChat.id) === false ? null : requestedChat);
-  const [listMessage, setListMessage] = useState([]);
+  const [currentChat, setCurrentChat] = useState(location.state?.requestedChat[0]===undefined ? null : location.state?.requestedChat[0]);
+  const [ listMessage, setListMessage] = useState([]);
   const [receiver, setReceiver] = useState(null);
   const [onlineUsers,setOnlineUsers] = useState([]) ;
   const [message, setMessage] = useState("");
   const [activeChatBox,setActiveChatBox] = useState(false);
   const [showPicker,setShowPicker] = useState(false);
+  const [showOption,setShowOption] = useState(false);
   const socket = useRef();
   const scrollRef = useRef();
   
@@ -45,7 +46,7 @@ const Messenger = () => {
 
   useEffect(() => {
     socket.current = io(process.env.REACT_APP_SOCKET_URL);
-
+    
     socket.current.on("getMessage", (data) => {
       console.log(data); // Log received data
       setArrivalMessage({
@@ -59,18 +60,19 @@ const Messenger = () => {
   }, []);
 
   useEffect(() => {
+    console.log("arrivalMessage",arrivalMessage);
     arrivalMessage &&
       (currentChat?.attendant1 === arrivalMessage.senderId ||
         currentChat?.attendant2 === arrivalMessage.senderId) &&
       setListMessage((prev) => [...prev, arrivalMessage]);
       
-  }, [arrivalMessage, currentChat]);
+  }, [arrivalMessage]);
 
   useEffect(() => {
     socket.current.emit("addUser", currentUser?.id);
     socket.current.on("getUsers",(users)=>{
       setOnlineUsers(users);
-    })
+    });
   }, [currentUser]);
 
   console.log(onlineUsers);
@@ -115,7 +117,9 @@ const Messenger = () => {
           process.env.REACT_APP_BACKEND_URL +`messages/${currentChat?.id}`
         );
         setListMessage(response.data);
-      } catch (err) {}
+      } catch (err) {
+
+      }
     };
     getChatBox();
   }, [currentChat?.id]);
@@ -135,6 +139,8 @@ const Messenger = () => {
       contentMessage: message,
       zoomId: currentChat?.id,
     });
+
+    
 
     try {
       await axios.post(process.env.REACT_APP_BACKEND_URL +`messages/`, sendedData);
@@ -188,7 +194,7 @@ const Messenger = () => {
                       src={
                         receiver?.profilePic === null
                           ? "/upload/image.png"
-                          : `/upload/${receiver?.profilePic}`
+                          : `${receiver?.profilePic}`
                       } 
                       alt=""
                     />
@@ -200,9 +206,14 @@ const Messenger = () => {
                     {checkOnlineUser(receiver?.id) && <span>Active now</span>}
                   </div>
                 </div>
-                <div className="toggle">
+                <div className="toggle" onClick={()=>{setShowOption(!showOption)}}>
                   <MoreHorizSharpIcon />
                 </div>
+                {showOption && <div className="option">
+                  <div className='item accessProfile'><UilUser/> Trang cá nhân</div>
+                  <hr></hr>
+                  <div className="item deleteConversation"><UilTrash/>Xóa đoạn chat</div>
+                </div>}
               </div>
               
               <div className="chatWrapper" >

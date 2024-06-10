@@ -51,10 +51,11 @@ const LeftBar = () => {
   return (
     <div className="leftBar">
       <div className="container">
-        <div className="menu">
+        <div className="menu infoUserTitle">
+          <Link to={`/profile/${currentUser.id}`} style={{textDecoration:'none'}}>
         <div className="user">
             <img
-              src={"/upload/" +currentUser.profilePic}
+              src={currentUser.profilePic}
               alt=""
             />
             <span className="nUser">{currentUser.name}
@@ -63,6 +64,7 @@ const LeftBar = () => {
             </span>
             
           </div>
+          </Link>
         </div>
         {notification === true ? <Notifications userId={currentUser?.id} onHidden={handleHiddenNotification} /> : (<div className="menu">
           <Link to='/' style={{textDecoration:'none'}}>

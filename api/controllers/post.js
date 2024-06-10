@@ -2,15 +2,25 @@ import jwt from "jsonwebtoken";
 import moment from "moment";
 import { db } from "../connect.js";
 
+export const numberPosts = (req,res)=>{
+  const userId = req.params.userId;
+  const q = `SELECT userId FROM posts WHERE userId = ?`;
+  db.query(q,[userId],(err,data)=>{
+    if(err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  })
+}
+
 export const getPosts = (req, res) => {
   const userId = req.query.userId;
   const token = req.cookies.accessToken;
+  console.log(userId);
   if (!token) return res.status(401).json("Not logged in!");
-
+  
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
 
-    console.log(userId);
+    console.log(userInfo.id);
 
     const q =
       userId !== "undefined"

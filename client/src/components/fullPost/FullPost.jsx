@@ -15,9 +15,9 @@ import Comments from "../comments/Comments";
 
 import "./fullPost.scss";
 
-const FullPost = (post, onHidden) => {
-  const { isLoading, error, data } = useQuery(["likes", post.post.id], () =>
-    makeRequest.get("/likes?postId=" + post.post.id).then((res) => {
+const FullPost = ({post, onHidden}) => {
+  const { isLoading, error, data } = useQuery(["likes", post.id], () =>
+    makeRequest.get("/likes?postId=" + post.id).then((res) => {
       return res.data;
     })
   );
@@ -26,17 +26,17 @@ const FullPost = (post, onHidden) => {
 
   const mutation = useMutation(
     (liked) => {
-      if (liked) return makeRequest.delete("/likes?postId=" + post.post.id);
-      return makeRequest.post("/likes", { postId: post.post.id });
+      if (liked) return makeRequest.delete("/likes?postId=" + post.id);
+      return makeRequest.post("/likes", { postId: post.id });
     },
     {
       onSuccess: () => {
         // Invalidate and refetch
         queryClient.invalidateQueries(["likes"]);
-        if (!data.includes(currentUser?.id) && currentUser?.id != post.post.userId) {
+        if (!data.includes(currentUser?.id) && currentUser?.id != post.userId) {
           makeRequest.post("/notifications/add", {
             senderId: currentUser?.id,
-            receiverId: post.post.userId,
+            receiverId: post.userId,
             type: 1,
           });
         }
@@ -54,37 +54,46 @@ const FullPost = (post, onHidden) => {
       },
     }
   );
+  const handleHiddenNav = ()=>{
+    document.querySelector('.navbar').style.zIndex = "-1";
+    document.querySelector('.rightBar').style.zIndex = "-1";
+  }
+  const handleDisplayNav = ()=>{
+    document.querySelector('.navbar').style.zIndex = "99";
+    document.querySelector('.rightBar').style.zIndex = "99";
+  }
+  handleHiddenNav();
   const handleLike = () => {
     mutation.mutate(data.includes(currentUser?.id));
   };
 
   const handleDelete = () => {
-    deleteMutation.mutate(post.post.id);
+    deleteMutation.mutate(post.id);
   };
 
   console.log(post);
   return (
     <div className="fullPost">
-      <div className="exit" onClick={post.onHidden}>
+      <div className="exit" onClick={()=>{handleDisplayNav();onHidden()}}>
         <UilMultiply />
       </div>
       <div className="imagePost">
-        <img src={"/upload/" + post.post.img} alt="" />
+        <img src={post.img} alt="" />
       </div>
       <div className="infoPost">
         <div className="info">
           <div className="user">
             <div className="profile_post">
-              <img src={"/upload/" + post.post.profilePic} alt="" />
+              <img src={post.profilePic} alt="" />
             </div>
-            <div className="name">{post.post.name}</div>
-            <div className="time">{moment(post.post.createdAt).fromNow()}</div>
+            <div className="name">{post.name}</div>
+            <div className="time">{moment(post.createdAt).fromNow()}</div>
           </div>
           <div className="option">
             <UilEllipsisH />
           </div>
         </div>
-        <div className="description">{post.post.desc}</div>
+        <div className="description">{post.desc}</div>
         <div className="reactBar">
           <div className="item like">
           {isLoading ? (
@@ -108,7 +117,7 @@ const FullPost = (post, onHidden) => {
             Chia sẻ
           </div>
         </div>
-        <Comments postId={post.post.id} userId={post.post.userId} />
+        <Comments postId={post.id} userId={post.userId} />
       </div>
     </div>
   );

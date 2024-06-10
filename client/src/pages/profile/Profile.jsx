@@ -11,34 +11,41 @@ import "./profile.scss";
 const Profile = () => {
   const [openUpdate, setOpenUpdate] = useState(false);
   const { currentUser } = useContext(AuthContext);
-
+  
   const userId = parseInt(useLocation().pathname.split("/")[2]);
-
-  const { isLoading, error, data } = useQuery(["user"], () =>
-    makeRequest.get("/users/find/" + userId).then((res) => {
-      return res.data;
-    })
+  console.log("profileUserId: ",userId);
+  const { isLoading, error, data: userData } = useQuery(["user"], () =>
+    makeRequest.get("/users/find/" + userId).then((res) => res.data)
   );
 
-  const { isLoading: rIsLoading, data: relationshipData } = useQuery(
+  const { isLoading: userPostsLoading, error: userPostsError, data: userPostsData } = useQuery(
+    ["userPosts"],
+    () => makeRequest.get(`/posts/${currentUser?.id}`).then((res) => res.data)
+  );
+
+
+
+  const { isLoading: isRelationshipLoading, error: relationshipError, data: relationshipData } = useQuery(
     ["relationship"],
     () =>
-      makeRequest.get("/relationships?followedUserId=" + userId).then((res) => {
-        return res.data;
-      })
+      makeRequest.get("/relationships?followedUserId=" + userId).then((res) => res.data)
+  );
+
+  const { isLoading: isNRelationshipLoading, error: nRelationshipError, data: nRelationshipData } = useQuery(
+    ["nRelationship"],
+    () =>
+      makeRequest.get(`/relationships/numberFd/${currentUser?.id}`).then((res) => res.data)
   );
 
   const queryClient = useQueryClient();
 
   const mutation = useMutation(
-    (following) => {
-      if (following)
-        return makeRequest.delete("/relationships?userId=" + userId);
-      return makeRequest.post("/relationships", { userId });
-    },
+    (following) =>
+      following
+        ? makeRequest.delete("/relationships?userId=" + userId)
+        : makeRequest.post("/relationships", { userId }),
     {
       onSuccess: () => {
-        // Invalidate and refetch
         queryClient.invalidateQueries(["relationship"]);
       },
     }
@@ -55,60 +62,71 @@ const Profile = () => {
       ) : (
         <>
           <div className="images">
-            <img src={"/upload/"+data.coverPic} alt="" className="cover" />
+            <img src={userData.coverPic} alt="" className="cover" />
           </div>
-          
+
           <div className="profileContainer">
             <div className="uInfo">
-            <div className="profilePic">
-              <img src={"/upload/"+data.profilePic} alt="" className="profilePic" />
-            </div>
-            
+              <div className="profilePic">
+                <img src={userData.profilePic} alt="" className="profilePic" />
+              </div>
+
               <div className="center">
-                <div className="userName">{data.name}
-                <span className="location">Live in {data?.city}
-                  </span></div>
+                <div className="userName">{userData.name}
+                  <span className="location">Live in {userData?.city}</span>
+                </div>
                 <div className="info">
                   <div className="item">
                     Theo dõi
-                    <span>455</span>
+                    <span>{relationshipData?.length}</span>
                   </div>
                   <div className="item">
                     Đang theo dõi
-                    <span>155</span>
+                    <span>{nRelationshipData?.length}</span>
                   </div>
                   <div className="item">
                     Bài viết
-                    <span>64</span>
+                    <span>
+                      {userPostsLoading ? (
+                        "..."
+                      ) : userPostsError ? (
+                        "Error Loading"
+                      ) : userPostsData ? (
+                        userPostsData?.length // Assuming 'length' property holds number of posts
+                      ) : (
+                        "No posts yet"
+                      )}
+                    </span>
                   </div>
                 </div>
                 <div className="button-profile">
-            {rIsLoading ? (
-                  "Đang tải..."
-                ) : userId === currentUser.id ? (
-                  <>
-                  <button className="update-btn" onClick={() => setOpenUpdate(true)}>Cập nhật</button>
-                  <button className="create-story">Tạo tin</button>
-                  </>
-                ) : (
-                  <>
-                  <button onClick={handleFollow}>
-                    {relationshipData.includes(currentUser.id)
-                      ? "Đang theo dõi"
-                      : "Theo dõi"}
-                  </button>
-                  <button className="chat">Nhắn tin</button>
-                  </>
-                )}
-            </div>
+                  {isRelationshipLoading ? (
+                    "Đang tải..."
+                  ) : userId === currentUser.id ? (
+                    <>
+                      <button className="update-btn" onClick={() => setOpenUpdate(true)}>Cập nhật</button>
+                      <button className="create-story">Tạo tin</button>
+                    </>
+                  ) : (
+                    <>
+                      <button onClick={handleFollow}>
+                        {relationshipData.includes(currentUser.id)
+                          ? "Đang theo dõi"
+                          : "Theo dõi"}
+                      </button>
+                      <button className="chat">Nhắn tin</button>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
-            <CurrentPost/>
+
+            <CurrentPost userId={userId}/>
             <Posts userId={userId} />
           </div>
         </>
       )}
-      {openUpdate && <Update setOpenUpdate={setOpenUpdate} user={data} />}
+      {openUpdate && <Update setOpenUpdate={setOpenUpdate} user={userData} />}
     </div>
   );
 };

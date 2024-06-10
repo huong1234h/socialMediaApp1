@@ -1,14 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
 import { makeRequest } from "../../axios";
-import { AuthContext } from "../../context/authContext";
 import "./currentPost.scss";
 
-const CurrentPost = () => {
-  const { currentUser } = useContext(AuthContext);
+const CurrentPost = ({userId}) => {
 
-  const { isLoading, error, data } = useQuery(["posts"], () =>
-    makeRequest.get("/posts?userId=" + currentUser?.id).then((res) => {
+  const { isLoading, error, data } = useQuery(["posts",userId], () =>
+    makeRequest.get("/posts?userId=" + userId).then((res) => {
       return res.data;
     })
   );
@@ -21,11 +18,11 @@ const CurrentPost = () => {
         <div className="all_button">Xem tất cả</div>
       </div>
       <div className="boxImg">
-        {data?.map((post,index)=>{
+        {data?.slice(0,9)?.map((post,index)=>{
             if(post.img){
                 return (
                     <div className="image">
-                        <img src={"/upload/" + post.img} />
+                        <img src={post.img} />
                     </div>
                 );
             }

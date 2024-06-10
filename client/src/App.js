@@ -78,10 +78,7 @@ function App() {
         },
       ],
     },
-    {
-      path: "/messenger/:userId/:conversationId",
-      element: <Messenger />
-    },
+    
     {
       path: "/messenger",
       element: <Messenger />

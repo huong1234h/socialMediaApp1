@@ -59,6 +59,14 @@
           
           justify-content: space-between;
           margin: 20px 0px;
+          transition: all .15s linear;
+          border-radius: 10px;
+          cursor: pointer;
+          padding:5px;
+          &:hover{
+            background-color: hsl(255,85%,90%);
+            
+          }
           &.user-recommend{
             display: grid;
             grid-template-columns: 65px 2fr;

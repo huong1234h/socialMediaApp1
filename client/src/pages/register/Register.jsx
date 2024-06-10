@@ -73,7 +73,7 @@ const Register = () => {
             {err && err}
             <button onClick={handleClick}>Register</button>
           </form>
-          {registered && <Navigate to="/login" replace={true} />} 
+          {registered && <Navigate to="/login" replace={true} />}
           {/* Hiển thị chuyển hướng sau khi đăng ký thành công */}
         </div>
       </div>

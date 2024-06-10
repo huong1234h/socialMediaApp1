@@ -71,7 +71,7 @@
             align-items: center;
             justify-content: space-between;
             
-            top:-50px;
+            top:-55px;
             left: 0;
             .option{
                 display: flex;
@@ -90,6 +90,10 @@
                     margin-right: 5px;
                 }
                 .time{
+                    .username{
+                        font-size:19px;
+                        font-weight: 540;
+                    }
                     font-size: 13px;
                     margin-left: 10px;
                     color: hsl(255,10%,90%);
@@ -106,5 +110,8 @@
                 border-radius: 15px;
             }
         }
+    }
+    .contentComment{
+        width: 100% !important;
     }
 }

@@ -10,6 +10,25 @@ export const getRelationships = (req,res)=>{
     });
 }
 
+export const getNumberFollower = (req,res)=>{
+  const userId = req.params.userId;
+  const q  = `SELECT followerUserId FROM relationships WHERE followedUserId = ?`;
+  db.query(q,[userId],(err,data)=>{
+    if(err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  })
+}
+
+export const getNumberFollowed = (req,res)=>{
+  const userId = req.params.userId;
+  const q  = `SELECT followedUserId FROM relationships WHERE followerUserId = ?`;
+  db.query(q,[userId],(err,data)=>{
+    if(err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  })
+}
+
+
 
 
 export const addRelationship = (req, res) => {

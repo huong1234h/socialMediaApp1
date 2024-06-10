@@ -41,7 +41,7 @@ const Conversation = function ({ c, userId, index ,displayChatBox,onlineUsers}) 
           src={
             receiver?.profilePic === null
               ? '/upload/image.png' // Placeholder for null receiver
-              : `/upload/${receiver?.profilePic}` // Construct image path
+              : `${receiver?.profilePic}` // Construct image path
           }
           alt=""
         />

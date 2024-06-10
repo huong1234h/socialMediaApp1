@@ -1,6 +1,9 @@
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useState } from "react";
+import { v4 } from "uuid";
+import { imageDb } from "../../Config";
 import { makeRequest } from "../../axios";
 import "./update.scss";
 
@@ -15,18 +18,21 @@ const Update = ({ setOpenUpdate, user }) => {
     website: user.website,
   });
 
-  const upload = async (file) => {
-    console.log(file)
+  
+  const handleSendImg = async (img) => {
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await makeRequest.post("/upload", formData);
-      return res.data;
-    } catch (err) {
-      console.log(err);
+      if (img !== null) {
+        const imgRef = ref(imageDb, `files/${v4()}`);
+        await uploadBytes(imgRef, img);
+        const url = await getDownloadURL(imgRef);
+        console.log("link" , url);
+        return url;
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      // Display an error message to the user
     }
   };
-
   const handleChange = (e) => {
     setTexts((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
   };
@@ -52,8 +58,8 @@ const Update = ({ setOpenUpdate, user }) => {
     
     let coverUrl;
     let profileUrl;
-    coverUrl = cover ? await upload(cover) : user.coverPic;
-    profileUrl = profile ? await upload(profile) : user.profilePic;
+    coverUrl = cover ? await handleSendImg(cover) : user.coverPic;
+    profileUrl = profile ? await handleSendImg(profile) : user.profilePic;
     
     mutation.mutate({ ...texts, coverPic: coverUrl, profilePic: profileUrl });
     setOpenUpdate(false);
@@ -73,7 +79,7 @@ const Update = ({ setOpenUpdate, user }) => {
                   src={
                     cover
                       ? URL.createObjectURL(cover)
-                      : "/upload/" + user.coverPic
+                      : user.coverPic
                   }
                   alt=""
                 />
@@ -93,7 +99,7 @@ const Update = ({ setOpenUpdate, user }) => {
                   src={
                     profile
                       ? URL.createObjectURL(profile)
-                      : "/upload/" + user.profilePic
+                      : user.profilePic
                   }
                   alt=""
                 />

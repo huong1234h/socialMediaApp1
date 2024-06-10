@@ -89,9 +89,17 @@
             background-color: hsl(255,99%,69%);
             font-size: 16px;
             border-radius: 20px;
+            .loading{
+              display: flex;
+              font-weight: 600;
+              justify-content: center;
+              align-items: center;
+            }
           }
         }
       }
     }
   }
 }
+
+

@@ -1,7 +1,7 @@
 import { UilAngleLeft, UilAngleRight } from '@iconscout/react-unicons';
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { makeRequest } from "../../axios";
 import { AuthContext } from "../../context/authContext";
 import DetailStory from '../detailStory/DetailStory';
@@ -23,9 +23,23 @@ const Stories = () => {
       return res.data;
     })
   );
-
-
   
+
+  const queryClient = useQueryClient() ;
+  const deleteMutation = useMutation(
+    (id)=>{
+      return makeRequest.delete("/stories/"+id);
+    },
+    {
+      onSuccess:()=>{
+        queryClient.invalidateQueries(["stories"]);
+      }
+    }
+  )
+
+  const handleDelete = async (id) =>{
+    await deleteMutation.mutate(id);
+  }
   
   
   const getScroll = () => {
@@ -77,7 +91,7 @@ const Stories = () => {
       <div className="content-stories" ref={contentStoriesRef} onScroll={getScroll}>
       <Link>
       <div className="story">
-        <img src={"/upload/" + currentUser?.profilePic} alt="" />
+        <img src={currentUser?.profilePic} alt="" />
         <span>{currentUser?.name}</span>
         <button onClick={()=>{setOpenForm(!openForm)}}>+</button>
       </div>
@@ -92,7 +106,7 @@ const Stories = () => {
               <div className="profilePic">
                   <img src="/upload/image.png" alt=""/>
               </div>
-              <img className="img-story" src={"/upload/"+story.img} alt="" />
+              <img className="img-story" src={story.img} alt="" />
               <span>{story.name}</span>
             </div>
           </Link>
@@ -100,7 +114,7 @@ const Stories = () => {
     </div>
     {openForm && <StoryForm onHidden={()=>{setOpenForm(!openForm)}} setOpenForm={setOpenForm} openForm={openForm}/>}
       {scrollR > 24  && <div className="next-btn" onClick={nextStories}><UilAngleRight size="38"/></div>}
-    {openStory && <DetailStory story={dataStory} onHidden={()=>{setOpenStory(!openStory)}} nextStory={nextStory} prevStory={prevStory}/>}
+    {openStory && <DetailStory story={dataStory} onHidden={()=>{setOpenStory(!openStory)}} nextStory={nextStory} prevStory={prevStory} handleDelete={handleDelete}/>}
     </div>
 
     
